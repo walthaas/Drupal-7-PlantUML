@@ -1,0 +1,23 @@
+@startuml
+
+header
+Drupal 7
+includes/form.inc
+endheader
+
+title
+===drupal_retrieve_form($form_id, &$form_state)
+endtitle
+
+start
+stop
+
+legend
+Called by:
+----
+[[drupal_build_form.svg drupal_build_form()]]
+drupal_rebuild_form()
+drupal_form_submit()
+endlegend
+
+@enduml

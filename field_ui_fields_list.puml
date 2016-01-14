@@ -1,0 +1,10 @@
+@startuml
+
+start
+:$instances = [[field_info_instances.svg field_info_instances()]];
+:$field_types = [[field_info_field_types.svg field_info_field_types()]];
+:$bundles = [[field_info_bundles.svg field_info_bundles()]];
+:$modules = system_rebuild_module_data();
+stop
+
+@enduml

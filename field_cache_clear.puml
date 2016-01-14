@@ -1,0 +1,21 @@
+@startuml
+
+header
+Drupal 7
+modules/field/field.module
+end header
+
+title
+===field_cache_clear
+end title
+
+start
+:FIXME;
+stop
+
+legend
+Called by:
+----
+end legend
+
+@enduml

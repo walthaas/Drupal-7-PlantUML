@@ -1,0 +1,17 @@
+@startuml
+
+header
+Drupal 7
+endheader
+
+title
+===Field Instance Lifecycle
+
+The life of a field instance can begin when the module
+which defines its field type is enabled.  See [[field%20type%20lifecycle.svg field type lifecycle]]
+endtitle
+
+start
+end
+
+@enduml

@@ -1,0 +1,47 @@
+@startuml
+
+header
+Drupal 7
+end header
+
+title
+===Entity relationships
+
+How entities, bundles, instances,
+field types and fields are related.
+end title
+
+object Entity
+note bottom of Entity
+An Entity is defined in code by
+[[https://api.drupal.org/api/drupal/modules!system!system.api.php/function/hook_entity_info/7 hook_entity_info]] as altered by
+[[https://api.drupal.org/api/drupal/modules!system!system.api.php/function/hook_entity_info_alter/7 hook_entity_info_alter]].  It is also
+possible to define an entity with the
+browser using the contributed
+[[https://www.drupal.org/project/eck Entity Construction Kit]] module.
+end note
+
+object "Fieldable Entity" as fe {
+  fieldable = TRUE
+}
+
+object "Non-fieldable Entity" as nfe {
+  fieldable = FALSE
+}
+
+object Comment
+object Node
+object User
+object File
+object Taxonomy
+
+nfe <|-- Entity
+fe <|-- Entity
+Node <|-- fe
+User <|-- fe
+Comment <|-- fe
+Taxonomy <|-- fe
+File <|-- nfe
+
+
+@enduml

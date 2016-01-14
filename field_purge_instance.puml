@@ -1,0 +1,17 @@
+@startuml
+
+start
+:Delete the instance row from the
+field_config_instance table;
+:Call hook_field_storage_purge_instance
+for the storage module with the instance;
+note right
+Code calls hook_field_storage_purge_instance() but API
+documents hook_field_storage_purge_field_instance().
+Neither hook is implemented in field_sql_storage.module
+end note
+:[[field_info_cache_clear field_info_cache_clear()]];
+:[[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_purge_instance/7 hook_field_purge_instance($instance)]];
+stop
+
+@enduml

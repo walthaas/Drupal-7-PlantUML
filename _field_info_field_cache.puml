@@ -1,0 +1,13 @@
+@startuml
+
+start
+if (field info in static variable?) then (yes)
+  :$field_info = content of static variable;
+else (no)
+  :$field_info = new FieldInfo();
+endif
+:return $field_info;
+  
+stop
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+
+start
+:$results = query tables field_config, field_config_instance
+joined on field_config:id = field_config_instance:field_id
+for all instances matching $params and $include_additional;
+note right
+The 'deleted' column
+appears in both tables.
+end note
+while (for each $results as $result)
+  if ($result['entity'] is active\n or include inactive?) then (yes)
+    :$instance = $result;
+    :[[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_read_instance/7 hook_field_read_instance($instance)]];
+    :$instances[] = $instance;
+  else (no)
+  endif
+end while
+:return $instances;
+stop
+
+@enduml

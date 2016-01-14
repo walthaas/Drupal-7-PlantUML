@@ -1,0 +1,14 @@
+@startuml
+
+start
+if ($type == 'module' and the module described
+in $file implements [[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_info/7 hook_field_info()]]?) then (yes)
+  :$fields = [[field_read_fields field_read_fields(module, include deleted)]];
+  if ($fields?) then (fields found)
+  :module is required;
+  :generate explanation message;
+  endif
+endif
+stop
+
+@enduml

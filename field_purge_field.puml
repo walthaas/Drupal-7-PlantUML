@@ -1,0 +1,10 @@
+@startuml
+
+start
+:Delete $field from field_config table;
+:call hook_field_storage_purge_field;
+:field_info_cache_clear();
+:call hook_[[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_purge_field/7 field_purge_field($field)]];
+stop
+
+@enduml

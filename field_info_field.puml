@@ -1,0 +1,8 @@
+@startuml
+
+start
+:$cache = [[_field_info_field_cache _field_info_field_cache()]];
+:return $cache->getField($field_name);
+stop
+
+@enduml

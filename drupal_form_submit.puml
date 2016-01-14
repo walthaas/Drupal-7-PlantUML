@@ -1,0 +1,22 @@
+@startuml
+
+header
+Drupal 7
+includes/file.inc
+endheader
+
+title
+===drupal_form_submit($form_id, &$form_state)
+endtitle
+
+start
+stop
+
+legend
+Called by:
+----
+aggregator_form_opml_submit()
+openid_authentication()
+endlegend
+
+@enduml

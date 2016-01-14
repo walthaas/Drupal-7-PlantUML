@@ -1,0 +1,22 @@
+@startuml
+
+start
+:Update the field_config_instance table
+to set delete = 1 for $instance.;
+:$field = [[field_info_field field_info_field($instance('field_name'))]];
+:[[field_cache_clear field_cache_clear()]];
+:Call [[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_storage_delete_instance/7 hook_field_storage_delete_instance($instance)]]
+on the storage module used by the field.
+----
+Update the data and revision tables
+for this instance to set deleted = 1.;
+:Call [[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_storage_delete_instance/7 hook_field_delete_instance($instance)]];
+note right
+image_field_delete_instance()
+end note
+if ($field_cleanup and zero\nbundles remain for the field) then (TRUE)
+:[[field_delete_field field_delete_field($field)]];
+endif
+stop
+
+@enduml

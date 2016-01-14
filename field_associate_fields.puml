@@ -1,0 +1,24 @@
+@startuml
+
+start
+:$field_types = $module[[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_info/7 _field_info()]];
+note right
+If $module implements hook_field_info(),
+call it to get the field types it defines.
+end note
+while (for each field type\n in $field_types)
+:Update field_config table rows with this field type
+to set module = $module, active = 1;
+end while
+:$storage_types = $module[[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_storage_info/7 _field_storage_info()]];
+note right
+If $module implements hook_field_storage_info(),
+call it to get the storage types it defines.
+end note
+while (for each storage type\n in $storage_types)
+:Update field_config table rows with this storage type
+to set module = $module, storage_active = 1;
+end while
+stop
+
+@enduml

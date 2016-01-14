@@ -1,0 +1,42 @@
+@startuml
+
+start
+:$instances = [[field_read_instances field_read_instances('deleted', 'include deleted')]];
+note right
+$instances is a list of the field instances marked
+deleted in the field_config_instance table of database
+end note
+while (for each instance in $instances)
+  :$results = list up to $batch_size
+  bundles this field belongs to;
+  if (any bundles found?) then (yes)
+    while (for each bundle in $results)
+      :[[field_attach_load field_attach_load()]]
+      ----
+      Load the entities.;
+      while (for each entity)
+        :field_purge_data($entity_type, $stub_entity)
+        ----
+        purge ?;
+      end while
+    end while
+  else
+    :[[field_purge_instance field_purge_instance($instance)]]
+    ----
+    Remove the instance from the
+    field_config_instance table.;
+endif
+end while
+:$fields = [[field_read_fields field_read_fields('deleted')]];
+while (for each $field in $fields)
+  :$instances = field_read_instances($field);
+  if (any instances?) then (no)
+    :[[field_purge_field field_purge_field($field)]]
+    ----
+    Delete $field's row from
+    the field_config table.;
+  endif
+end while
+end
+
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+
+start
+while (for each enabled module\n as $module_name)
+:[[field_associate_fields field_associate_fields($module_name)]]
+----
+Update the field_config table to indicate that
+all field types and storage types defined by
+this module are active.;
+end while
+:Update field_config table to show that all field types
+defined by disabled modules are not active;
+:Update field_config table to show that all storage types
+defined by disabled modules are not active;
+
+stop
+
+@enduml

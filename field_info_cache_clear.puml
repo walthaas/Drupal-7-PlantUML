@@ -1,0 +1,22 @@
+@startuml
+
+start
+:drupal_static_reset('field_view_mode_settings');
+:drupal_static_reset('field_available_languages');
+:entity_info_cache_clear()
+----
+Clear cached entity_get_info data from static memory.
+Delete rows with keys starting 'entity_info:'
+from the cache table;
+:[[_field_info_collate_types _field_info_collate_types(TRUE)]]
+----
+Delete rows with keys starting 'field_info_types:
+for all languages from the cache_field table;
+:[[_field_info_field_cache _field_info_field_cache()]]->flush()
+----
+Clear cached field_info data from static memory.
+Delete rows with keys starting 'field_info:'
+from the cache_field table;
+end
+
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+
+start
+:$info = [[_field_info_collate_types _field_info_collate_types()]]
+----
+Collate and return information from [[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_info/7 hook_field_info]], [[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_widget_info/7 hook_field_widget_info]],
+[[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_formatter_info/7 hook_field_formatter_info]] and [[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_storage_info/7 hook_field_storage_info]].;
+:$field_types = $info['field types'];
+if ($field_type null?) then (yes)
+  :return $field_types;
+else (no)
+  if ($field_types[$field_type] null?) then (yes)
+    :return null;
+  else (no)
+    :return $field_types[$field_type];
+  endif
+endif
+stop
+
+@enduml

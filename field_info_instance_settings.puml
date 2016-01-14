@@ -1,0 +1,8 @@
+@startuml
+
+start
+:$info = [[field_info_field_types field_info_field_types($type)]];
+:FIXME;
+stop
+
+@enduml

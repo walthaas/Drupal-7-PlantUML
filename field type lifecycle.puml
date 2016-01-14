@@ -1,0 +1,45 @@
+@startuml
+
+header
+Drupal 7
+endheader
+
+title
+===Field Type Lifecycle
+
+A Drupal 7 field type is defined in a module by
+its implementation of hook_field_info().
+Each field type is in one of three states.
+endtitle
+
+[*] --> Disabled
+Disabled: The module defining this field type
+Disabled: is disabled.  Fields of this type cannot
+Disabled: be created or deleted.  The defining
+Disabled: hook_field_info() and hook_field_schema()
+Disabled: are not available to other modules.
+Disabled --> Enabled : Module enabled
+Enabled: The module defining this field type is
+Enabled: enabled and modules can create field 
+Enabled: instances of this type but no such instances
+Enabled: are active now.  There may be instances
+Enabled: of this type marked 'deleted' in the
+Enabled: field_config_instance table of the DB.
+Enabled: Such deleted instances are eligible to
+Enabled: to be purged by a cron job.  See
+Enabled: field_create_instance(), field_cron().
+Enabled --> InUse : Fields of this type created
+InUse: The module defining the field type
+InUse: is locked to prevent disabling.
+InUse: The field_config table in the DB has
+InUse: a row for this field type.  Each instance
+InUse: has a row in the field_config_instance table.
+InUse: Other modules may create and delete instances
+InUse: of this field type.  See field_create_instance(),
+InUse: field_delete_instance().
+InUse --> Enabled: All fields of this type deleted
+Enabled --> Disabled: Module disabled
+Disabled  --> [*] : Module uninstalled
+
+
+@enduml

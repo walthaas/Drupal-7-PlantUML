@@ -1,0 +1,22 @@
+@startuml
+
+header
+Drupal 7
+cron.php
+end header
+
+:cron event>
+:drupal_bootstrap('FULL');
+if (cron_key invalid?) then (yes)
+  :watchdog('invalid key');
+  :drupal_access_denied();
+elseif (in maintenance mode?) then (yes)
+  :watchdog('in maintenance mode');
+  :drupal_access_denied();
+else (no)
+  :[[drupal_cron_run drupal_cron_run()]]
+  ----
+  Perform periodic system maintenance jobs.;
+endif
+stop
+@enduml

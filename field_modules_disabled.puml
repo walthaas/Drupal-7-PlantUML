@@ -1,0 +1,11 @@
+@startuml
+
+start
+:[[field_sync_field_status field_sync_field_status()]]
+----
+Update the field_config table to indicate that field types
+and storage types defined by enabled modules are active,
+and those defined by disabled modules are not active.;
+stop
+
+@enduml

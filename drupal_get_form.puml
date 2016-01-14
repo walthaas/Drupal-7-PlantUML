@@ -1,0 +1,33 @@
+@startuml
+
+header
+Drupal 7
+includes/form.inc
+endheader
+
+title
+===drupal_get_form($form_id)
+
+Create a form or process a submitted form.  Note that the
+effect depends on the following:
+* Arguments following $form_id if any exist.
+* The contents of global variables [[http://www.php.net/manual/en/reserved.variables.get.php $_GET]] and
+  [[http://www.php.net/manual/en/reserved.variables.post.php $_POST]] which are normally set to values from
+  the user's browser.
+* Previously cached copy of the form if such exists.
+* Value returned by menu_get_item().
+endtitle
+
+start
+:Create an empty $form_state array.
+$form_state['build_info']['args'] = any arguments following $form_id;
+:return [[drupal_build_form.svg drupal_build_form]]($form_id, $form_state);
+stop
+
+legend
+Called by:
+----
+someplace in menu?
+endlegend
+
+@enduml

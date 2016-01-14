@@ -1,0 +1,23 @@
+@startuml
+
+start
+:FIXME- mark for delete;
+:Call [[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_storage_delete_field/7 hook_storage_delete_field($field)]]
+----
+In the commonest case this is a call to
+field_sql_storage_field_storage_delete_field()
+which renames the field_data_//fieldname//
+and field_revision_//fieldname// tables
+to field_deleted_data_//number// and
+field_deleted_revision_//number//, then
+rebuilds the database schema.;
+:Update field_config table
+to set this field deleted = 1.;
+:[[field_cache_clear field_cache_clear(TRUE)]];
+:Call [[https://api.drupal.org/api/drupal/modules!field!field.api.php/function/hook_field_delete_field/7 hook_field_delete_field($field)]];
+note right
+image_field_delete_field()
+end note
+stop
+
+@enduml

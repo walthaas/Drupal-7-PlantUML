@@ -1,0 +1,24 @@
+@startuml
+
+header
+Drupal 7
+includes/form.inc
+endheader
+
+title
+===drupal_validate_form($form_id, &$form, &$form_state)
+endtitle
+
+start
+:FIXME return if cached validated and not must_validate;
+:FIXME if token not valid set error, return;
+:FIXME call _form_validate;
+stop
+
+legend
+Called by:
+----
+[[drupal_process_form.svg drupal_process_form()]]
+endlegend
+
+@enduml

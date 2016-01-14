@@ -1,0 +1,16 @@
+@startuml
+
+start
+if ($reset?) then (FALSE)
+:FIXME;
+else (TRUE)
+:Clear cache
+----
+Delete rows with keys starting 'field_info_types:
+for all languages from the cache_field table;
+:return NULL;
+endif
+
+stop
+
+@enduml

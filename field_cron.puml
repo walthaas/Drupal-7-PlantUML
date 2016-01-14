@@ -1,0 +1,21 @@
+@startuml
+
+start
+:[[field_sync_field_status field_sync_field_status()]]
+----
+Update the field_config table to indicate that field types
+and storage types defined by enabled modules are active,
+and those defined by disabled modules are not active.;
+:$limit = variable_get('field_purge_batch_size', 10);
+note right
+Maximum number of deleted
+fields to purge in this batch.
+There is currently no way to set
+this variable from the browser.
+end note
+:[[field_purge_batch field_purge_batch($limit)]]
+----
+Delete up to $limit rows marked delete;
+stop
+
+@enduml

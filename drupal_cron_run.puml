@@ -1,0 +1,64 @@
+@startuml
+
+start
+:Ignore user abort.
+Save user, session.
+Set user to anonymous.
+Start 4 minute time limit.
+$return = FALSE;
+:$queues = [[https://api.drupal.org/api/drupal/modules!system!system.api.php/function/hook_cron_queue_info/7 hook_cron_queue_info()]];
+note right
+Core Modules
+----
+aggregator_cron_queue_info()
+end note
+:[[https://api.drupal.org/api/drupal/modules!system!system.api.php/function/hook_cron_queue_info_alter/7 hook_cron_queue_info_alter($queues)]];
+if (request cron lock) then ([fail])
+  note left
+  cron lock guarantees that only
+  one cron job at a time can run
+  end note
+  :watchdog('attempt to re-run cron');
+else ([succeed])
+  while(for each queue in $queues)
+    :create queue;
+  endwhile
+  while (for each module that\n implements hook_cron)
+  :try [[https://api.drupal.org/api/drupal/modules!system!system.api.php/function/hook_cron/7 hook_cron()]];
+
+  note right
+  Core Modules
+  ----
+  aggregator_cron()
+  dblog_cron()
+  [[field_cron field_cron()]]
+  node_cron()
+  openid_cron()
+  search_cron()
+  system_cron()
+  tracker_cron()
+  trigger_cron()
+  update_cron()
+  end note
+  if (Exception\n thrown?) then (catch)
+    :watchdog_exception();
+  endif
+  end while
+  :watchdog('Cron run completed')
+  Release cron lock.
+  $return = TRUE;
+endif
+while (for each queue in $queues)
+  if (skip this queue on cron?) then ([no])
+    while (for each item in queue)
+      :call queue worker
+       callback with item;
+      :delete item from queue;
+    endwhile
+  endif
+endwhile
+:restore user, session;
+:return $return;
+stop
+
+@enduml

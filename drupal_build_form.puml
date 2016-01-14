@@ -1,0 +1,55 @@
+@startuml
+
+header
+Drupal 7
+includes/form.inc
+endheader
+
+title
+===drupal_build_form($form_id, $form_state)
+
+Merge default values into $form_state, then merge in
+form data submitted by the browser if any.  Note that the
+effect depends on the following:
+* The contents of global variables [[http://www.php.net/manual/en/reserved.variables.get.php $_GET]] and
+  [[http://www.php.net/manual/en/reserved.variables.post.php $_POST]] which are normally set to values from
+  the user's browser.
+* Previously cached copy of the form if such exists.
+* Value returned by menu_get_item().
+endtitle
+
+start
+:$form_state += form_state_defaults();
+note right
+Add default values to form state.
+The default value of $form_state['method'] is 'post'.
+end note
+if ($form_state['input'] set?) then (yes)
+else (no)
+  if ($form_state['method']) then ('get')
+    :$form_state['input'] = [[http://www.php.net/manual/en/reserved.variables.get.php $_GET]];
+  else ('post')
+    :$form_state['input'] = [[http://www.php.net/manual/en/reserved.variables.post.php $_POST]];
+    note right
+    Set $form_state['input'] to values from
+    the browser, if any.  When not called from
+    a browser request, $_POST is empty.
+    end note
+  endif
+endif
+:FIXME batch form processing;
+:FIXME get form from cache;
+:FIXME if form not found in cache,
+  [[drupal_retrieve_form.svg drupal_retrieve_form()]],
+  [[drupal_prepare_form.svg drupal_prepare_form()]];
+:FIXME [[drupal_process_form.svg drupal_process_form()]];
+:return $form;
+stop
+
+legend
+Called by:
+----
+[[drupal_get_form.svg drupal_get_form()]]
+endlegend
+
+@enduml

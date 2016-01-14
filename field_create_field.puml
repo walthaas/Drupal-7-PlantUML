@@ -1,0 +1,32 @@
+@startuml
+
+start
+if (empty($field['field_name'])?) then (yes)
+  :Throw exception 'Attempt to create\n an unnamed field.';
+  stop
+endif
+if (empty($field['type'])?) then (yes)
+  :Throw exception 'Attempt to\n create field with no type.';
+  stop
+endif
+if (Invalid characters\n in field name?) then (yes)
+  :Throw exception 'Attempt to create a field\n name with invalid characters.';
+  stop
+endif
+if (Field name longer\nthan 32 characters?) then (yes)
+  :Throw exception 'Attempt to create a field
+  with a name longer than 32 characters.';
+  stop
+endif
+if (Field name already in use?) then (yes)
+  :Throw exception 'Attempt to create\n field name which already exists.';
+  stop
+endif
+if (Field name a reserved word?) then (yes)
+  :Throw exception 'Attempt to create\n field name which is reserved.';
+  stop
+endif
+:FIXME;
+stop
+
+@enduml
