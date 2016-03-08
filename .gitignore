@@ -1,0 +1,7 @@
+# Ignore emacs work files
+*~
+\#*\#
+
+# Ignore generated files
+*.png
+*.cmapx
