@@ -1,9 +1,9 @@
 @startuml
 
 start
-:$instances = [[field_info_instances.png field_info_instances()]];
-:$field_types = [[field_info_field_types.png field_info_field_types()]];
-:$bundles = [[field_info_bundles.png field_info_bundles()]];
+:$instances = [[field_info_instances field_info_instances()]];
+:$field_types = [[field_info_field_types field_info_field_types()]];
+:$bundles = [[field_info_bundles field_info_bundles()]];
 :$modules = system_rebuild_module_data();
 stop
 
