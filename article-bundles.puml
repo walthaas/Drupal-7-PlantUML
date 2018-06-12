@@ -1,6 +1,6 @@
 @startuml
 
-title Drupal 7 Standard Install\nArticle Bundles ERD
+title Drupal 7 Standard Install\nContent Type Article\nBundles Simplified ERD
 
 hide circles
 hide empty methods
