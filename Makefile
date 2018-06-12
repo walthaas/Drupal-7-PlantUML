@@ -6,11 +6,12 @@
 # Source all .puml files in this directory
 PUMLS := $(wildcard *.puml)
 PNGS := $(patsubst %.puml,%.png,$(PUMLS))
+CMAPXS := $(patsubst %.puml,%.cmapx,$(PUMLS))
 
 all : $(PNGS)
 
 clean :
-	rm -f $(wildcard *.png) $(wildcard *.cmapx)
+	rm -f $(PNGS) $(CMAPXS)
 
 %.png : %.puml
 	plantuml $<

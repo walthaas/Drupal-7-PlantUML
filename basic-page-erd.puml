@@ -1,0 +1,88 @@
+@startuml
+
+title Drupal 7 Standard Install\nNode and Field Modules\n Simplified ERD For Basic Page
+
+hide circles
+hide empty methods
+
+!define KEY <color #D4AF37><U+1F511></color>
+!define INDEX <color #888888><U+1F5C2></color>
+!define FK <color #228B22><U+2192></color>
+
+
+package "Node module" {
+
+  entity node {
+     * KEY nid
+     * INDEX vid : FK node_revision.vid
+     * INDEX type : 'page'
+     * INDEX title
+     * INDEX created
+     * INDEX changed
+  }
+
+  entity node_revision {
+    * INDEX nid : FK node.nid
+    * KEY vid
+    * title
+    * timestamp
+  }
+
+  node_revision }|--|| node
+
+  entity node_type {
+    * KEY type
+    * name
+    * base : 'node_content'
+    * module : 'node'
+  }
+
+  node ||--|{ node_type
+
+  entity field_data_body {
+    * KEY entity_type
+    * INDEX bundle
+    * KEY entity_id
+    * INDEX revision_id : FK field_revision_body.revision_id
+    * body_value
+  }
+
+  field_data_body ||--|| node
+
+  entity field_revision_body {
+    * KEY entity_type : 'node'
+    * INDEX bundle : 'page'
+    * KEY entity_id
+    * INDEX revision_id
+    * body_value
+  }
+
+  field_revision_body }|--|| field_data_body
+
+}
+'end package "Node module"
+
+package "Field module" {
+
+  entity field_config {
+    KEY id
+    INDEX field_name
+    INDEX type
+    INDEX module
+  }
+
+  entity field_config_instance {
+    KEY id
+    field_id : FK field_config.id
+    INDEX field_name
+    INDEX entity_type : 'node'
+    INDEX bundle : 'page'
+  }
+
+  field_config_instance }|--|| field_config
+  field_config_instance ||--|| node
+
+}
+'end package "Field module"
+
+@enduml
