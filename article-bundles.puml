@@ -1,0 +1,71 @@
+@startuml
+
+title Drupal 7 Standard Install\nArticle Bundles ERD
+
+hide circles
+hide empty methods
+
+!define KEY <color #D4AF37><U+1F511></color>
+!define INDEX <color #888888><U+1F5C2></color>
+!define FK <color #228B22><U+2192></color>
+
+package "node.article bundle" {
+
+  entity "node" {
+    * KEY nid
+    * type : article
+    * title
+  }
+
+  entity "field_data_body" {
+    * KEY entity_type : node
+    * KEY entity_id : FK node.nid
+    * bundle : article
+    * body_value
+  }
+
+  entity "field_data_field_tags" {
+    * KEY entity_type : node
+    * KEY entity_id : FK node.nid
+    * bundle : article
+    * field_tags_tid
+  }
+
+  entity "field_data_field_image" {
+    * KEY entity_type : node
+    * KEY entity_id : FK node.nid
+    * bundle : article
+    * field_image_fid
+    * field_image_alt
+    * field_image_title
+    * field_image_width
+    * field_image_height
+  }
+
+}
+
+node ||--|| field_data_body
+node ||--|| field_data_field_tags
+node ||--|| field_data_field_image
+
+package "comment.comment_node_article bundle" {
+
+  entity "comment" {
+    * KEY cid
+    * nid : FK node.nid
+    * subject
+  }
+
+  entity "field_data_comment_body" {
+    * KEY entity_type : comment
+    * KEY entity_id : FK comment.cid
+    * bundle : comment_node_article
+    * comment_body_value
+  }
+
+  comment ||--|| field_data_comment_body
+  comment }o--|| node
+}
+
+
+@enduml
