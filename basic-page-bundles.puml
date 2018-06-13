@@ -13,14 +13,14 @@ package "node.page bundle" {
 
   entity "node" {
     * KEY nid
-    * type : page
+    * type : 'page'
     * title
   }
 
   entity "field_data_body" {
-    * KEY entity_type : node
+    * KEY entity_type : 'node'
     * KEY entity_id : FK node.nid
-    * bundle : page
+    * bundle : 'page'
     * body_value
   }
 
@@ -37,9 +37,9 @@ package "comment.comment_node_page bundle" {
   }
 
   entity "field_data_comment_body" {
-    * KEY entity_type : comment
+    * KEY entity_type : 'comment'
     * KEY entity_id : FK comment.cid
-    * bundle : comment_node_page
+    * bundle : 'comment_node_page'
     * comment_body_value
   }
 

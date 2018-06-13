@@ -13,28 +13,28 @@ package "node.article bundle" {
 
   entity "node" {
     * KEY nid
-    * type : article
+    * type : 'article'
     * title
   }
 
   entity "field_data_body" {
-    * KEY entity_type : node
+    * KEY entity_type : 'node'
     * KEY entity_id : FK node.nid
-    * bundle : article
+    * bundle : 'article'
     * body_value
   }
 
   entity "field_data_field_tags" {
-    * KEY entity_type : node
+    * KEY entity_type : 'node'
     * KEY entity_id : FK node.nid
-    * bundle : article
+    * bundle : 'article'
     * field_tags_tid
   }
 
   entity "field_data_field_image" {
-    * KEY entity_type : node
+    * KEY entity_type : 'node'
     * KEY entity_id : FK node.nid
-    * bundle : article
+    * bundle : 'article'
     * field_image_fid
     * field_image_alt
     * field_image_title
@@ -57,9 +57,9 @@ package "comment.comment_node_article bundle" {
   }
 
   entity "field_data_comment_body" {
-    * KEY entity_type : comment
+    * KEY entity_type : 'comment'
     * KEY entity_id : FK comment.cid
-    * bundle : comment_node_article
+    * bundle : 'comment_node_article'
     * comment_body_value
   }
 
