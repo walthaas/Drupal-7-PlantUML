@@ -1,0 +1,53 @@
+@startuml
+
+header
+Drupal 7
+end header
+
+title Drupal 7 Commerce\nEntity Controller Class Inheritance
+
+package "Entity Module" {
+
+  class DrupalDefaultEntityController {
+  }
+
+  class EntityAPIController {
+  }
+
+}
+'end package "Entity Module"
+
+EntityAPIController <|-- DrupalDefaultEntityController
+
+package "Commerce Module" {
+
+  class DrupalCommerceEntityController {
+  }
+
+  class CommerceCustomerProfileEntityController {
+  }
+
+  class CommerceLineItemEntityController {
+  }
+
+  class CommercePaymentTransactionEntityController {
+  }
+
+  class CommerceProductEntityController {
+  }
+
+  class CommerceOrderEntityController {
+  }
+
+}
+'end package "Commerce Module"
+
+DrupalDefaultEntityController <|-- DrupalCommerceEntityController
+DrupalCommerceEntityController <|-- CommerceCustomerProfileEntityController
+DrupalCommerceEntityController <|-- CommerceLineItemEntityController
+DrupalCommerceEntityController <|-- CommercePaymentTransactionEntityController
+DrupalCommerceEntityController <|-- CommerceProductEntityController
+DrupalCommerceEntityController <|-- CommerceOrderEntityController
+
+@enduml
+

@@ -4,12 +4,7 @@ header
 Drupal 7
 end header
 
-title
-===Entity relationships
-
-How entities, bundles, instances,
-field types and fields are related.
-end title
+title Drupal 7 Entity Inheritance\nStandard Install
 
 object Entity
 note bottom of Entity

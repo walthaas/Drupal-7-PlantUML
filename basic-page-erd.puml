@@ -40,9 +40,9 @@ package "Node module" {
   node ||--|{ node_type
 
   entity field_data_body {
-    * KEY entity_type
-    * INDEX bundle
-    * KEY entity_id
+    * KEY entity_type : 'node'
+    * INDEX bundle : 'page'
+    * KEY entity_id : FK node.nid
     * INDEX revision_id : FK field_revision_body.revision_id
     * body_value
   }
@@ -52,7 +52,7 @@ package "Node module" {
   entity field_revision_body {
     * KEY entity_type : 'node'
     * INDEX bundle : 'page'
-    * KEY entity_id
+    * KEY entity_id : FK node.nid
     * INDEX revision_id
     * body_value
   }
