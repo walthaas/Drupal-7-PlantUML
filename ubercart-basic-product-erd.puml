@@ -1,0 +1,143 @@
+@startuml
+
+title Drupal 7 Standard Install\nUbercart Basic Product\nSimplified ERD
+
+hide circles
+hide empty methods
+
+!define KEY <color #D4AF37><U+1F511></color>
+!define INDEX <color #888888><U+1F5C2></color>
+!define FK <color #228B22><U+2192></color>
+
+package "Node module" {
+
+  entity node {
+     * KEY nid
+     * INDEX vid : FK node_revision.vid
+     * INDEX type : 'product'
+     * INDEX title
+     * INDEX created
+     * INDEX changed
+  }
+
+  entity node_revision {
+    * INDEX nid : FK node.nid
+    * KEY vid
+    * title
+    * timestamp
+  }
+
+  node_revision }|--|| node
+
+  entity node_type {
+    * KEY type
+    * name
+    * base : 'node_content'
+    * module : 'node'
+  }
+
+  node ||--|{ node_type
+
+  entity field_data_body {
+    * KEY entity_type : 'node'
+    * INDEX bundle : 'product'
+    * KEY entity_id : FK node.nid
+    * INDEX revision_id : FK field_revision_body.revision_id
+    * body_value
+  }
+
+  field_data_body ||--|| node
+
+  entity field_revision_body {
+    * KEY entity_type : 'node'
+    * INDEX bundle : 'product'
+    * KEY entity_id : FK node.nid
+    * INDEX revision_id
+    * body_value
+  }
+
+  field_revision_body }|--|| field_data_body
+
+}
+'end package "Node module"
+
+package "Field module" {
+
+  entity field_config {
+    KEY id
+    INDEX field_name
+    INDEX type
+    INDEX module
+  }
+
+  entity field_config_instance {
+    KEY id
+    field_id : FK field_config.id
+    INDEX field_name
+    INDEX entity_type : 'node'
+    INDEX bundle : 'product'
+  }
+
+  field_config_instance }|--|| field_config
+  field_config_instance ||--|| node
+
+}
+'end package "Field module"
+
+package "Product module" {
+  entity "uc_products" {
+    * KEY vid : FK node.vid
+    * INDEX nid : FK node.nid
+    * model
+    * list_price
+    * cost
+    * sell_price
+    * weight
+    * weight_units
+    * length
+    * width
+    * height
+    * length_units
+    * pkg_qty
+    * default_qty
+    * ordering
+    * shippable
+  }
+}
+'end package "Product module"
+
+uc_products ||--|| node
+
+package "Image Module" {
+
+  entity field_data_field_image {
+    * KEY entity_type : 'node'
+    * INDEX bundle : 'product'
+    * KEY entity_id : FK node.nid
+    * INDEX revision_id : FK field_revision_field_image.revision_id
+    * KEY field_image_fid
+    * field_image_alt
+    * field_image_title
+    * field_image_width
+    * field_image_height
+  }
+
+  field_data_field_image ||--|| node
+
+  entity field_revision_field_image {
+    * KEY entity_type : 'node'
+    * INDEX bundle : 'product'
+    * KEY entity_id : FK node.nid
+    * KEY revision_id
+    * KEY field_image_fid
+    * field_image_alt
+    * field_image_title
+    * field_image_width
+    * field_image_height
+  }
+
+  field_revision_field_image }|--|| field_data_field_image
+}
+
+@enduml
+
