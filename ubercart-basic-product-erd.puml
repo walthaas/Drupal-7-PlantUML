@@ -8,6 +8,8 @@ hide empty methods
 !define KEY <color #D4AF37><U+1F511></color>
 !define INDEX <color #888888><U+1F5C2></color>
 !define FK <color #228B22><U+2192></color>
+!define PINK #FDE3DD
+!define BLUE #DBEFFD
 
 package "Node module" {
 
@@ -29,7 +31,7 @@ package "Node module" {
 
   node_revision }|--|| node
 
-  entity node_type {
+  entity node_type PINK {
     * KEY type
     * name
     * base : 'node_content'
@@ -63,14 +65,14 @@ package "Node module" {
 
 package "Field module" {
 
-  entity field_config {
+  entity field_config PINK {
     KEY id
     INDEX field_name
     INDEX type
     INDEX module
   }
 
-  entity field_config_instance {
+  entity field_config_instance PINK {
     KEY id
     field_id : FK field_config.id
     INDEX field_name
@@ -85,7 +87,7 @@ package "Field module" {
 'end package "Field module"
 
 package "Product module" {
-  entity "uc_products" {
+  entity "uc_products" PINK {
     * KEY vid : FK node.vid
     * INDEX nid : FK node.nid
     * model
@@ -110,7 +112,7 @@ uc_products ||--|| node
 
 package "Image Module" {
 
-  entity field_data_field_image {
+  entity field_data_field_image BLUE {
     * KEY entity_type : 'node'
     * INDEX bundle : 'product'
     * KEY entity_id : FK node.nid
@@ -124,7 +126,7 @@ package "Image Module" {
 
   field_data_field_image ||--|| node
 
-  entity field_revision_field_image {
+  entity field_revision_field_image BLUE {
     * KEY entity_type : 'node'
     * INDEX bundle : 'product'
     * KEY entity_id : FK node.nid
